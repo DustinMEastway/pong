@@ -53,10 +53,10 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="LeftPaddle" parent="." instance=ExtResource( 3 )]
+[node name="Paddle1" parent="." instance=ExtResource( 3 )]
 position = Vector2( 10, 30 )
 
-[node name="RightPaddle" parent="." instance=ExtResource( 3 )]
+[node name="Paddle2" parent="." instance=ExtResource( 3 )]
 position = Vector2( 1008, 550 )
 
 [node name="Ball" parent="." instance=ExtResource( 4 )]
