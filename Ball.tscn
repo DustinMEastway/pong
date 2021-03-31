@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+
+[node name="Ball" type="RigidBody2D"]
+
+[node name="CollisionShape" type="CollisionShape2D" parent="."]
+position = Vector2( 2, 2 )
+scale = Vector2( 0.2, 0.2 )
+shape = SubResource( 1 )
+
+[node name="Color" type="ColorRect" parent="."]
+margin_right = 4.0
+margin_bottom = 4.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
