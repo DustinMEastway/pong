@@ -5,13 +5,13 @@
 [node name="Paddle" type="KinematicBody2D"]
 
 [node name="CollisionShape" type="CollisionShape2D" parent="."]
-position = Vector2( 3, 10 )
-scale = Vector2( 0.3, 1 )
+position = Vector2( 0.5, 0.5 )
+scale = Vector2( 0.05, 0.05 )
 shape = SubResource( 1 )
 
 [node name="Color" type="ColorRect" parent="."]
-margin_right = 6.0
-margin_bottom = 20.0
+margin_right = 1.0
+margin_bottom = 1.0
 __meta__ = {
 "_edit_use_anchors_": false
 }

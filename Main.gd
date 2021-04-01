@@ -1,6 +1,11 @@
 extends Node2D
 
-export var paddle_speed = 800
+export var paddle_size: Vector2 = Vector2(6, 20)
+export var paddle_speed: int = 800
+
+func _ready():
+	$Paddle1.scale = paddle_size
+	$Paddle2.scale = paddle_size
 
 func _process(delta):
 	if (Input.is_action_pressed("ui_cancel")):
