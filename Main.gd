@@ -12,19 +12,13 @@ var _screen_size = Vector2(1024, 600)
 func _ready():
 	_create_paddles()
 
-func _process(delta):
+func _physics_process(delta):
 	if (Input.is_action_pressed("ui_cancel")):
 		get_tree().quit()
-
-	if (Input.is_action_pressed("ui_down_01")):
-		_paddle1.move_and_collide(Vector2(0, paddle_speed * delta))
-	elif (Input.is_action_pressed("ui_up_01")):
-		_paddle1.move_and_collide(Vector2(0, -paddle_speed * delta))
-
-	if (Input.is_action_pressed("ui_down_02")):
-		_paddle2.move_and_collide(Vector2(0, paddle_speed * delta))
-	elif (Input.is_action_pressed("ui_up_02")):
-		_paddle2.move_and_collide(Vector2(0, -paddle_speed * delta))
+	
+	var paddle_delta = paddle_speed * delta
+	_move_paddle(_paddle1, "ui_down_01", "ui_up_01", paddle_delta)
+	_move_paddle(_paddle2, "ui_down_02", "ui_up_02", paddle_delta)
 
 func _create_paddles():
 	_paddle1 = _paddle_resource.instance()
@@ -35,3 +29,11 @@ func _create_paddles():
 	_paddle2.scale = paddle_size
 	_paddle2.position = _screen_size - _paddle_offset - paddle_size
 	add_child(_paddle2)
+
+func _move_paddle(paddle: KinematicBody2D, down_key: String, up_key: String, distance: float):
+	var paddle_position = paddle.position
+	if (Input.is_action_pressed(down_key)):
+		paddle_position.y += distance
+	elif (Input.is_action_pressed(up_key)):
+		paddle_position.y -= distance
+	paddle.position = paddle_position
