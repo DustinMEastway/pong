@@ -1,8 +1,7 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://fonts/8bitOperator-Bold-16.tres" type="DynamicFont" id=1]
 [ext_resource path="res://Main.gd" type="Script" id=2]
-[ext_resource path="res://Paddle.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Ball.tscn" type="PackedScene" id=4]
 [ext_resource path="res://fonts/8bitOperator-Bold-40.tres" type="DynamicFont" id=5]
 
@@ -52,12 +51,6 @@ valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
-[node name="Paddle1" parent="." instance=ExtResource( 3 )]
-position = Vector2( 10, 30 )
-
-[node name="Paddle2" parent="." instance=ExtResource( 3 )]
-position = Vector2( 1008, 550 )
 
 [node name="Ball" parent="." instance=ExtResource( 4 )]
 position = Vector2( 510, 298 )
