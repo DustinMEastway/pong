@@ -1,8 +1,11 @@
 extends Node2D
 
+export var ball_size: Vector2 = Vector2(4, 4)
 export var paddle_size: Vector2 = Vector2(6, 20)
 export var paddle_speed: int = 800
 
+var _ball: KinematicBody2D = null
+var _ball_resource: Resource = load("res://Ball.tscn")
 var _paddle_offset = Vector2(10, 30)
 var _paddle_resource: Resource = load("res://Paddle.tscn")
 var _paddle1: KinematicBody2D = null
@@ -10,6 +13,7 @@ var _paddle2: KinematicBody2D = null
 var _screen_size = Vector2(1024, 600)
 
 func _ready():
+	_create_ball()
 	_create_paddles()
 
 func _physics_process(delta):
@@ -19,6 +23,12 @@ func _physics_process(delta):
 	var paddle_delta = paddle_speed * delta
 	_move_paddle(_paddle1, "ui_down_01", "ui_up_01", paddle_delta)
 	_move_paddle(_paddle2, "ui_down_02", "ui_up_02", paddle_delta)
+
+func _create_ball():
+	_ball = _ball_resource.instance()
+	_ball.scale = ball_size
+	_ball.position = _screen_size / 2 - ball_size / 2
+	add_child(_ball)
 
 func _create_paddles():
 	_paddle1 = _paddle_resource.instance()
