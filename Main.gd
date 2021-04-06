@@ -54,4 +54,6 @@ func _move_paddle(paddle: KinematicBody2D, down_key: String, up_key: String, dis
 		paddle_position.y += distance
 	elif (Input.is_action_pressed(up_key)):
 		paddle_position.y -= distance
+
+	paddle_position.y = min(_screen_size.y - paddle_size.y, max(0, paddle_position.y))
 	paddle.position = paddle_position
