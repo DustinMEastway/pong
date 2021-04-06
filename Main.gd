@@ -11,14 +11,29 @@ var _ball_velocity = Vector2(0, 0)
 var _game_state: String
 var _paddle_offset = Vector2(10, 30)
 var _paddle_resource: Resource = load("res://Paddle.tscn")
-var _paddle1: KinematicBody2D = _paddle_resource.instance()
-var _paddle2: KinematicBody2D = _paddle_resource.instance()
+var _paddle1: Paddle = _paddle_resource.instance()
+var _paddle2: Paddle = _paddle_resource.instance()
 var _screen_size = Vector2(1024, 600)
 
 func _ready() -> void:
 	add_child(_ball)
+
+	_paddle1.key_down = "ui_down_01"
+	_paddle1.key_up = "ui_up_01"
+	_paddle1.max_y = _screen_size.y
+	_paddle1.speed = paddle_speed
+	_paddle1.start_position = _paddle_offset
+	_paddle1.start_size = paddle_size
 	add_child(_paddle1)
+
+	_paddle2.key_down = "ui_down_02"
+	_paddle2.key_up = "ui_up_02"
+	_paddle2.max_y = _screen_size.y
+	_paddle2.speed = paddle_speed
+	_paddle2.start_position = _screen_size - _paddle_offset - paddle_size
+	_paddle2.start_size = paddle_size
 	add_child(_paddle2)
+
 	_reset_game()
 
 func _physics_process(delta) -> void:
@@ -33,20 +48,9 @@ func _physics_process(delta) -> void:
 	if (_game_state != "play"):
 		return
 
-	var paddle_delta = paddle_speed * delta
-	_move_paddle(_paddle1, "ui_down_01", "ui_up_01", paddle_delta)
-	_move_paddle(_paddle2, "ui_down_02", "ui_up_02", paddle_delta)
+	_paddle1.move(delta)
+	_paddle2.move(delta)
 	_ball.move_and_collide(_ball_velocity)
-
-func _move_paddle(paddle: KinematicBody2D, down_key: String, up_key: String, distance: float) -> void:
-	var paddle_position = paddle.position
-	if (Input.is_action_pressed(down_key)):
-		paddle_position.y += distance
-	elif (Input.is_action_pressed(up_key)):
-		paddle_position.y -= distance
-
-	paddle_position.y = min(_screen_size.y - paddle_size.y, max(0, paddle_position.y))
-	paddle.position = paddle_position
 
 func _reset_game() -> void:
 	var ball_x := ball_speed if (RandomService.rand_bool()) else -ball_speed
@@ -56,8 +60,5 @@ func _reset_game() -> void:
 	_ball_velocity = Vector2(ball_x, ball_y)
 
 	_game_state = 'start'
-
-	_paddle1.scale = paddle_size
-	_paddle1.position = _paddle_offset
-	_paddle2.scale = paddle_size
-	_paddle2.position = _screen_size - _paddle_offset - paddle_size
+	_paddle1.reset()
+	_paddle2.reset()
