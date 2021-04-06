@@ -1,7 +1,6 @@
 extends Node2D
 
-var _ball: KinematicBody2D = load("res://Ball.tscn").instance()
-var _ball_velocity = Vector2(0, 0)
+var _ball: Ball = load("res://Ball.tscn").instance()
 var _paddle_offset = Vector2(10, 30)
 var _paddle_resource: Resource = load("res://Paddle.tscn")
 var _paddle1: Paddle = _paddle_resource.instance()
@@ -33,22 +32,8 @@ func _physics_process(delta) -> void:
 		else:
 			_reset_game()
 
-	if (GameService.state != "play"):
-		return
-
-	_paddle1.move(delta)
-	_paddle2.move(delta)
-	_ball.move_and_collide(_ball_velocity)
-
 func _reset_game() -> void:
-	var ball_speed := GameService.ball_speed
-	var ball_size := GameService.ball_size
-	var ball_x := ball_speed if (RandomService.rand_bool()) else -ball_speed
-	var ball_y := RandomService.randi_range(-ball_speed, ball_speed)
-	_ball.scale = ball_size
-	_ball.position = GameService.screen_size / 2 - ball_size / 2
-	_ball_velocity = Vector2(ball_x, ball_y)
-
 	GameService.state = 'start'
+	_ball.reset()
 	_paddle1.reset()
 	_paddle2.reset()
