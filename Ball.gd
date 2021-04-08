@@ -3,13 +3,13 @@ class_name Ball
 
 var _ball_velocity := Vector2(0, 0)
 
-func reset() -> void:
+func reset(serving_player: int) -> void:
 	var ball_size := GameService.ball_size
 	scale = ball_size
 	position = GameService.screen_size / 2 - ball_size / 2
 
 	var ball_speed := GameService.ball_speed
-	var ball_x := ball_speed if (RandomService.rand_bool()) else -ball_speed
+	var ball_x: float = ball_speed if (serving_player == 1) else -ball_speed
 	var ball_y := RandomService.randf_range(-ball_speed, ball_speed)
 	_ball_velocity = Vector2(ball_x, ball_y)
 
