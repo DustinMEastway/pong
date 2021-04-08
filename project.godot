@@ -35,6 +35,10 @@ config/icon="res://icon.png"
 GameService="*res://services/GameService.gd"
 RandomService="*res://services/RandomService.gd"
 
+[display]
+
+window/stretch/mode="2d"
+
 [input]
 
 ui_down_01={
@@ -60,4 +64,5 @@ ui_up_02={
 
 [rendering]
 
+quality/driver/driver_name="GLES2"
 environment/default_environment="res://default_env.tres"
