@@ -31,13 +31,14 @@ func _ready() -> void:
 	_reset_game()
 
 func _physics_process(_delta) -> void:
-	if (Input.is_action_pressed("ui_cancel")):
-		get_tree().quit()
+	if (Input.is_action_just_pressed("ui_cancel")):
+		if (GameService.state == "start"):
+			get_tree().quit()
+		else:
+			_reset_game()
 	elif (Input.is_action_just_released("ui_accept")):
 		if (GameService.state == "start"):
 			GameService.state = "play"
-		else:
-			_reset_game()
 
 func _process(_delta):
 	if (display_fps):
