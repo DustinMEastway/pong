@@ -13,9 +13,6 @@ func reset() -> void:
 	scale = GameService.paddle_size
 
 func _physics_process(delta) -> void:
-	if (GameService.state != "play"):
-		return
-
 	var paddle_position = position
 	if (Input.is_action_pressed(key_down)):
 		paddle_position.y += delta * GameService.paddle_speed
