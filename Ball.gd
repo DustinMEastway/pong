@@ -29,3 +29,6 @@ func _physics_process(_delta) -> void:
 				ball_y / 2
 			)
 			_ball_velocity *= GameService.ball_speed_scale
+			$AudioPlayers/HitPaddle.play()
+		else:
+			$AudioPlayers/HitWall.play()

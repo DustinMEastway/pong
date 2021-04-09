@@ -1,9 +1,11 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://fonts/8bitOperator-Bold-16.tres" type="DynamicFont" id=1]
 [ext_resource path="res://Main.gd" type="Script" id=2]
 [ext_resource path="res://TouchButton.tscn" type="PackedScene" id=3]
+[ext_resource path="res://sounds/win.wav" type="AudioStream" id=4]
 [ext_resource path="res://fonts/8bitOperator-Bold-40.tres" type="DynamicFont" id=5]
+[ext_resource path="res://sounds/score.wav" type="AudioStream" id=7]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -11,6 +13,15 @@
 
 [node name="Main" type="Node2D"]
 script = ExtResource( 2 )
+
+[node name="AudioPlayers" type="Node" parent="."]
+
+[node name="Win" type="AudioStreamPlayer" parent="AudioPlayers"]
+stream = ExtResource( 4 )
+
+[node name="Score" type="AudioStreamPlayer" parent="AudioPlayers"]
+stream = ExtResource( 7 )
+volume_db = -6.0
 
 [node name="ColorRect" type="ColorRect" parent="."]
 margin_right = 1024.0

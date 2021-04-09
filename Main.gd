@@ -45,7 +45,6 @@ func _physics_process(_delta) -> void:
 		or Input.is_action_just_pressed("ui_up_02")
 	)
 
-
 	if (Input.is_action_just_pressed("ui_cancel")):
 		if (GameService.state == "serve" or GameService.state == "done"):
 			get_tree().quit()
@@ -74,10 +73,16 @@ func _process(_delta):
 	if (GameService.state != 'play'):
 		return
 
+	var new_score: int = 0
 	if (_ball.position.x < 0):
-		_update_score(1, _score1, _score2 + 1)
+		new_score = _score2 + 1
+		_update_score(1, _score1, new_score)
 	elif (_ball.position.x > GameService.screen_size.x):
-		_update_score(2, _score1 + 1, _score2)
+		new_score = _score1 + 1
+		_update_score(2, new_score, _score2)
+
+	if (new_score > 0 and new_score < 10):
+		$AudioPlayers/Score.play()
 
 func _reset_game() -> void:
 	_update_score(1, 0, 0)
@@ -104,6 +109,7 @@ func _update_score(serving_player: int, score1: int, score2: int):
 	else:
 		GameService.state = "done"
 		var winning_player = 1 if _serving_player == 2 else 2
+		$AudioPlayers/Win.play()
 		_update_labels(
 			"Player " + String(winning_player) + " Won!",
 			"Press ENTER to play again!"
