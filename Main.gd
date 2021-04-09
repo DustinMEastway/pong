@@ -40,10 +40,9 @@ func _physics_process(_delta) -> void:
 			get_tree().quit()
 		else:
 			_reset_game()
-	elif (Input.is_action_just_released("ui_accept")):
-		if (GameService.state == "serve"):
-			GameService.state = "play"
-			_update_labels()
+	elif (GameService.state == "serve" and _is_serve_pressed()):
+		GameService.state = "play"
+		_update_labels()
 
 func _process(_delta):
 	if (display_fps):
@@ -54,6 +53,24 @@ func _process(_delta):
 	elif (_ball.position.x > GameService.screen_size.x):
 		_update_score(2, _score1 + 1, _score2)
 
+func _is_serve_pressed() -> bool:
+	return (
+		Input.is_action_just_released("ui_accept")
+		or (
+			_serving_player == 1
+			and (
+				Input.is_action_just_pressed("ui_down_01")
+				or Input.is_action_just_pressed("ui_up_01")
+			)
+		)
+		or (
+			_serving_player == 2
+			and (
+				Input.is_action_just_pressed("ui_down_02")
+				or Input.is_action_just_pressed("ui_up_02")
+			)
+		)
+	)
 func _reset_game() -> void:
 	_update_score(1, 0, 0)
 	_paddle1.reset()

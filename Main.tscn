@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://fonts/8bitOperator-Bold-16.tres" type="DynamicFont" id=1]
 [ext_resource path="res://Main.gd" type="Script" id=2]
+[ext_resource path="res://TouchButton.tscn" type="PackedScene" id=3]
 [ext_resource path="res://fonts/8bitOperator-Bold-40.tres" type="DynamicFont" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
@@ -76,3 +77,20 @@ shape = SubResource( 1 )
 position = Vector2( 512, 603 )
 scale = Vector2( 51.2, 0.3 )
 shape = SubResource( 2 )
+
+[node name="Controls" type="CanvasLayer" parent="."]
+
+[node name="ui_up_01" parent="Controls" instance=ExtResource( 3 )]
+action = "ui_up_01"
+
+[node name="ui_down_01" parent="Controls" instance=ExtResource( 3 )]
+position = Vector2( 0, 300 )
+action = "ui_down_01"
+
+[node name="ui_up_02" parent="Controls" instance=ExtResource( 3 )]
+position = Vector2( 512, 0 )
+action = "ui_up_02"
+
+[node name="ui_down_02" parent="Controls" instance=ExtResource( 3 )]
+position = Vector2( 512, 300 )
+action = "ui_down_02"
